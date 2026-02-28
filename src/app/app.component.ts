@@ -1,6 +1,6 @@
 import {Component, computed, inject, OnDestroy, OnInit, signal} from '@angular/core'
 import {CommonModule} from '@angular/common';
-import SudokuService, {Difficulty} from './services/sudoku.service';
+import {SudokuService, Difficulty} from './services/sudoku.service';
 
 @Component({
   selector: 'app-root',
@@ -9,7 +9,9 @@ import SudokuService, {Difficulty} from './services/sudoku.service';
   template: `
     <div class="app-wrapper">
       <nav class="game-info">
-        <div class="stat-box">LIVES: <span class="hp">{{ game.lives() }}</span></div>
+        <div class="stat-box">
+          LIVES: <span class="hp" [class.low]="game.lives() <= 2">{{ game.lives() }}</span>
+        </div>
         <div class="stat-box">TIME: <span>{{ formattedTime() }}</span></div>
         <div class="stat-box">MODE: <span>{{ game.difficulty() }}</span></div>
       </nav>
@@ -120,8 +122,9 @@ export class AppComponent implements OnInit, OnDestroy {
         this.updateBoard(r, c, { value: val, notes: [] });
       } else {
         this.game.lives.update(v => Math.max(0, v - 1));
-        inEl.parentElement?.classList.add('error-shake');
-        setTimeout(() => inEl.classList.remove('error-shake'), 400);
+        const wrapper = inEl.parentElement;
+        wrapper?.classList.add('error-shake');
+        setTimeout(() => wrapper?.classList.remove('error-shake'), 400);
       }
     }
   }

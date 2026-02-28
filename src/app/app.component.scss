@@ -48,14 +48,14 @@
   margin: 0 auto;
 
   &.disabled { opacity: 0.5; pointer-events: none; }
+}
 
-  .row {
-    display: flex;
+.row {
+  display: flex;
 
-    // Apply thick borders to the 3rd and 6th row
-    &:nth-child(3n):not(:last-child) {
-      margin-bottom: 2px;
-    }
+  &:nth-child(3n):not(:last-child) {
+    // This targets the bottom border of the entire 3rd and 6th row
+    border-bottom: 2px solid var(--primary);
   }
 }
 
@@ -68,7 +68,7 @@
   // ADD THIS: Base border for every cell
   border: 0.5px solid #dee2e6;
 
-  // Thick borders for 3x3 subgrids (Vertical)
+  // Thick borders for 3x3 boxes (Vertical)
   &:nth-child(3n):not(:last-child) {
     border-right: 2px solid var(--primary);
     margin-right: 1px; // Maintains spacing for the board gap
@@ -121,15 +121,6 @@
       line-height: 1;
       visibility: hidden;
       &.visible { visibility: visible; }
-    }
-  }
-
-  .row {
-    display: flex;
-
-    &:nth-child(3n):not(:last-child) {
-      // This targets the bottom border of the entire 3rd and 6th row
-      border-bottom: 2px solid var(--primary);
     }
   }
 }
